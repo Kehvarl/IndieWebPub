@@ -23,7 +23,7 @@ Story Site Generator helps you:
 - Export a static site you can upload anywhere (e.g. Neocities)
 
 You write in your editor of choice.  
-The app reads from disk and stays out of the way.
+IndieWebPub reads from disk and stays out of the way.
 
 ---
 
@@ -67,12 +67,12 @@ No metadata files are required to get started.
 
 ## How You Use It
 
-1. Launch the app
+1. Launch IndieWebPub
 2. Drag a folder into the window **or** choose one from a file dialog
-3. The app scans for stories and chapters
+3. IndieWebPub scans for stories and chapters
 4. Select a chapter to see a preview
 5. Edit text in your favorite editor
-6. Switch back to the app — the preview refreshes automatically
+6. Switch back to IndieWebPub — the preview refreshes automatically
 7. Export when ready
 
 ---
@@ -82,7 +82,7 @@ No metadata files are required to get started.
 - Uses the same HTML and CSS that will be exported
 - Optimized for mobile reading
 - Respects system light/dark mode
-- Refreshes automatically when the app regains focus
+- Refreshes automatically when IndieWebPub regains focus
 
 No live background file watching.  
 No fighting your editor’s autosave.
@@ -111,7 +111,7 @@ Your original text files are never modified.
 - Quiet
 - Cross-platform (Windows, macOS, Linux)
 
-The app should feel more like a helpful tool than a system you have to learn.
+IndieWebPub should feel more like a helpful tool than a system you have to learn.
 
 ---
 
