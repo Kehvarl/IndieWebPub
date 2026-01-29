@@ -1,6 +1,6 @@
 # Mental Model
 
-This application is a **filesystem reader and static site generator**.
+IndieWebPub is a **filesystem reader and static site generator**.
 
 It does not manage writing.
 It does not own content.
