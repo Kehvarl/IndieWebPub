@@ -1,7 +1,6 @@
 # Indie Web Publisher
-This is a management tool authors can use to package up stories and apply a 
-simple, consistent style so they're ready to publish on the Indie Web, and
-can be read on a wide variety of devices.
+A small desktop tool authors can use to package stories as clean, readable
+static websites for the Indie Web.
 
 
 # Simplified Design
@@ -16,14 +15,11 @@ Just folders, text files, preview, and export.
 
 ## What This Is
 
-Story Site Generator helps you:
+IndieWebPub helps you:
 
 - Organize stories stored as plain `.txt` files
 - Preview them using a reader-friendly web layout
-- Export a static site you can upload anywhere (e.g. Neocities)
-
-You write in your editor of choice.  
-IndieWebPub reads from disk and stays out of the way.
+- Export a static site you can upload anywhere
 
 ---
 
@@ -56,7 +52,7 @@ My Stories/
 │ │ ├─ 01_The_Hatch.txt
 │ │ └─ 02_Captain_Dyer.txt
 │ └─ Another Story/
-│ └─ 01_Intro.txt
+│   └─ 01_Intro.txt
 └─ assets/
 
 That’s it.
@@ -67,25 +63,22 @@ No metadata files are required to get started.
 
 ## How You Use It
 
-1. Launch IndieWebPub
-2. Drag a folder into the window **or** choose one from a file dialog
-3. IndieWebPub scans for stories and chapters
-4. Select a chapter to see a preview
-5. Edit text in your favorite editor
-6. Switch back to IndieWebPub — the preview refreshes automatically
-7. Export when ready
+IndieWebPub is intentionally simple:
+
+- Open or drag a project folder
+- Browse discovered stories and chapters
+- Preview rendered output
+- Export when ready
+
+Writing and editing always happen in your editor of choice.
+IndieWebPub refreshes previews when you return to the app.
 
 ---
 
 ## Preview
-
-- Uses the same HTML and CSS that will be exported
+- Uses the same HTML and CSS as exported output
 - Optimized for mobile reading
 - Respects system light/dark mode
-- Refreshes automatically when IndieWebPub regains focus
-
-No live background file watching.  
-No fighting your editor’s autosave.
 
 ---
 
@@ -97,9 +90,7 @@ Export produces a static website:
 - Optional index pages
 - Shared CSS and assets
 
-The output is ready to upload to any static host.
-
-Your original text files are never modified.
+Original text files are never modified.
 
 ---
 
@@ -130,7 +121,7 @@ If you want those, this probably isn’t the right tool.
 
 ## Status
 
-Early design and prototyping.
+Early-stage implementation with a stable core design.
 
 Feedback from writers is welcome.
 
