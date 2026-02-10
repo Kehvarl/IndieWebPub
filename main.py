@@ -1,28 +1,59 @@
 import sys
 
-from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt6.QtCore import Qt, QDir, QFileInfo
+from PyQt6.QtGui import QAction, QFileSystemModel
+from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QMenu, QTreeView, QWidget, QVBoxLayout
+
 
 # Subclass QMainWindow to customize your application's main window
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.button_is_checked = False
-
         self.setWindowTitle("My App")
+        self.setAcceptDrops(True)
 
-        self.button = QPushButton("Press Me!")
-        self.button.setCheckable(True)
-        self.button.released.connect(self.the_button_was_released)
-        self.button.setChecked(self.button_is_checked)
+        self.dirModel = QFileSystemModel()
+        self.dirModel.setRootPath(QDir.homePath())
 
-        self.setCentralWidget(self.button)
+        self.treeview = QTreeView()
+        self.treeview.setModel(self.dirModel)
+        self.treeview.setRootIndex(self.dirModel.index(QDir.homePath()))
 
-    def the_button_was_released(self):
-        self.button_is_checked = self.button.isChecked()
 
-        print(self.button_is_checked)
+        layout = QVBoxLayout()
+        layout.addWidget(QLabel("Hello!"))
+        layout.addWidget(self.treeview)
+
+        container = QWidget()
+        container.setLayout(layout)
+
+        self.setCentralWidget(container)
+
+    def set_root(self, path):
+        index = self.dirModel.index(path)
+        if index.isValid():
+            self.treeview.setRootIndex(index)
+            self.treeview.expandAll()
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+
+    def dropEvent(self, event):
+        urls = event.mimeData().urls()
+        if not urls:
+            return
+
+        info = QFileInfo(urls[0].toLocalFile())
+        self.set_root(info.absoluteFilePath() if info.isDir() else info.absolutePath())
+
+    def contextMenuEvent(self, e):
+        context = QMenu(self)
+        context.addAction(QAction("test 1", self))
+        context.addAction(QAction("test 2", self))
+        context.addAction(QAction("test 3", self))
+        context.exec(e.globalPos())
 
 app = QApplication(sys.argv)
 
