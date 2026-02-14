@@ -2,7 +2,8 @@ import sys
 
 from PyQt6.QtCore import Qt, QDir, QFileInfo
 from PyQt6.QtGui import QAction, QFileSystemModel
-from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QMenu, QTreeView, QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QMenu, QTreeView, QWidget, QVBoxLayout, QStackedLayout, \
+    QPushButton, QFileDialog
 
 
 # Subclass QMainWindow to customize your application's main window
@@ -14,21 +15,46 @@ class MainWindow(QMainWindow):
         self.setAcceptDrops(True)
 
         self.dirModel = QFileSystemModel()
-        self.dirModel.setRootPath(QDir.homePath())
+        self.dirModel.setRootPath("")
 
         self.treeview = QTreeView()
         self.treeview.setModel(self.dirModel)
-        self.treeview.setRootIndex(self.dirModel.index(QDir.homePath()))
+        #self.treeview.setRootIndex(self.dirModel.index(QDir.homePath()))
 
+        btnLoadProject = QPushButton("Load Project")
+        btnLoadProject.clicked.connect(self.load_project)
+
+        self.tree_stack = QStackedLayout()
+        self.tree_stack.addWidget(btnLoadProject)
+        self.tree_stack.addWidget(self.treeview)
+        self.tree_stack.setCurrentIndex(0)
+
+        stack_container = QWidget()
+        stack_container.setLayout(self.tree_stack)
 
         layout = QVBoxLayout()
         layout.addWidget(QLabel("Hello!"))
-        layout.addWidget(self.treeview)
+        layout.addWidget(stack_container)
 
         container = QWidget()
         container.setLayout(layout)
 
         self.setCentralWidget(container)
+
+    def load_project(self):
+        path = QFileDialog.getExistingDirectory(
+            self,
+            "Select Project Folder",
+            QDir.homePath()
+        )
+        if path:
+            self.load_project_path(path)
+
+    def load_project_path(self, path):
+        index = self.dirModel.index(path)
+        if index.isValid():
+            self.treeview.setRootIndex(index)
+            self.tree_stack.setCurrentIndex(1)
 
     def set_root(self, path):
         index = self.dirModel.index(path)
@@ -39,6 +65,8 @@ class MainWindow(QMainWindow):
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
             event.acceptProposedAction()
+        else:
+            event.ignore()
 
     def dropEvent(self, event):
         urls = event.mimeData().urls()
@@ -46,7 +74,13 @@ class MainWindow(QMainWindow):
             return
 
         info = QFileInfo(urls[0].toLocalFile())
-        self.set_root(info.absoluteFilePath() if info.isDir() else info.absolutePath())
+
+        if info.isDir():
+            path = info.absoluteFilePath()
+        else:
+            path = info.absolutePath()
+
+        self.load_project_path(path)
 
     def contextMenuEvent(self, e):
         context = QMenu(self)
