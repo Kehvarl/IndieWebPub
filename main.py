@@ -11,26 +11,28 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("My App")
+        self.setWindowTitle("IndieWeb Publish")
         self.setAcceptDrops(True)
 
-        self.dirModel = QFileSystemModel()
-        self.dirModel.setRootPath("")
+        self.projectDirModel = QFileSystemModel()
+        self.projectDirModel.setRootPath("")
 
-        self.treeview = QTreeView()
-        self.treeview.setModel(self.dirModel)
+        self.projectTreeView = QTreeView()
+        self.projectTreeView.setModel(self.projectDirModel)
+        self.projectTreeView.setRootIsDecorated(False)
+        self.projectTreeView.setItemsExpandable(True)
         #self.treeview.setRootIndex(self.dirModel.index(QDir.homePath()))
 
-        btnLoadProject = QPushButton("Load Project")
-        btnLoadProject.clicked.connect(self.load_project)
+        openProjectButton = QPushButton("Open Project")
+        openProjectButton.clicked.connect(self.choose_project_folder)
 
-        self.tree_stack = QStackedLayout()
-        self.tree_stack.addWidget(btnLoadProject)
-        self.tree_stack.addWidget(self.treeview)
-        self.tree_stack.setCurrentIndex(0)
+        self.projectViewStack = QStackedLayout()
+        self.projectViewStack.addWidget(openProjectButton)
+        self.projectViewStack.addWidget(self.projectTreeView)
+        self.projectViewStack.setCurrentIndex(0)
 
         stack_container = QWidget()
-        stack_container.setLayout(self.tree_stack)
+        stack_container.setLayout(self.projectViewStack)
 
         layout = QVBoxLayout()
         layout.addWidget(QLabel("Hello!"))
@@ -41,26 +43,20 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(container)
 
-    def load_project(self):
+    def choose_project_folder(self):
         path = QFileDialog.getExistingDirectory(
             self,
             "Select Project Folder",
             QDir.homePath()
         )
         if path:
-            self.load_project_path(path)
+            self.open_project_root(path)
 
-    def load_project_path(self, path):
-        index = self.dirModel.index(path)
+    def open_project_root(self, path):
+        index = self.projectDirModel.index(path)
         if index.isValid():
-            self.treeview.setRootIndex(index)
-            self.tree_stack.setCurrentIndex(1)
-
-    def set_root(self, path):
-        index = self.dirModel.index(path)
-        if index.isValid():
-            self.treeview.setRootIndex(index)
-            self.treeview.expandAll()
+            self.projectTreeView.setRootIndex(index)
+            self.projectViewStack.setCurrentIndex(1)
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
@@ -80,7 +76,7 @@ class MainWindow(QMainWindow):
         else:
             path = info.absolutePath()
 
-        self.load_project_path(path)
+        self.open_project_root(path)
 
     def contextMenuEvent(self, e):
         context = QMenu(self)
