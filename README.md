@@ -68,7 +68,7 @@ No metadata files are required to get started.
 ## How You Use It
 
 1. Launch IndieWebPub
-2. Drag a folder into the window **or** choose one from a file dialog
+2. Drag a folder into the window or choose one from a file dialog
 3. IndieWebPub scans for stories and chapters
 4. Select a chapter to see a preview
 5. Edit text in your favorite editor
