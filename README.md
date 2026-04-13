@@ -29,7 +29,7 @@ IndieWebPub reads from disk and stays out of the way.
 
 ## What This Is *Not*
 
-This is **not**:
+This is not:
 
 - A word processor
 - A Markdown editor
