@@ -25,7 +25,7 @@ IndieWebPub helps you:
 
 ## What This Is *Not*
 
-This is **not**:
+This is not:
 
 - A word processor
 - A Markdown editor
@@ -124,4 +124,3 @@ If you want those, this probably isn’t the right tool.
 Early-stage implementation with a stable core design.
 
 Feedback from writers is welcome.
-
