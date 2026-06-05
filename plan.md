@@ -4,7 +4,7 @@ ProjectManager Skeleton
 - Scan subfolders for stories
 - Scan .txt files for chapters
 - Build in-memory structure: Story :: Chapter
-- Expose stories list for UI consumption
+- Expose stories list for UI consumptiona
 
 Story/Chapter Data Classes 
 - Define Story class
@@ -28,8 +28,3 @@ UI Layout Prep
 Drag-and-Drop / Folder Opening 
 - Wire dropEvent to feed folder path into ProjectManager
 - Update tree view after drop
-
-Optional Quick Wins 
-- Add print/log statements to verify scanning and tree population
-- Add placeholder QTextBrowser for preview (empty for now)
-- Add placeholder QLabel for metadata editing panel
