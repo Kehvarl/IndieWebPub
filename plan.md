@@ -1,3 +1,10 @@
+A story is made up of chapters
+A chapter may have a title, the contents, a preceeding chapter, and a following chapter
+For the most part chapter order could be encoded in the filename
+
+
+
+
 ProjectManager Skeleton
 - Create ProjectManager class
 - Accept a folder path
